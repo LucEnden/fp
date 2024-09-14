@@ -1,5 +1,7 @@
 module Ceaser exposing (..)
 
+import String exposing (fromChar)
+
 -- ASCII characters that are important to the implementations of encode/decode:
 -- A / 65
 -- ...
@@ -7,9 +9,6 @@ module Ceaser exposing (..)
 -- a / 97
 -- ...
 -- z / 122
-
--- Taken from the excersise PDF:
--- "Note that lower case letters remain lower case, and upper case letters remain upper case."
 
 encode: Int -> Char -> Char
 encode offset original = 
@@ -45,3 +44,52 @@ decode offset original =
         encode offset original
     else
         encode (0 - offset) original
+
+normalize: String -> String
+normalize s =
+    -- removes spaces and all non-letters (like #, =, !, @)
+    -- normalize "Hi! Hey!"
+    -- "HiHey"
+    -- normalize ""
+    -- ""
+
+    -- The base case for my implementation is hitting an empty string
+    -- As long as the string is not empty, I recursivly loop trough its characters
+    -- If the head character is alphabetical:
+    --      We return the head and continue normalizing the tail
+    -- else:
+    --      We continue with just the tail
+    --      Since we now know the current head should be eliminated from the final string
+
+    case String.uncons s of
+        Nothing -> 
+            -- base case
+            s
+        Just (head, tail) -> 
+            -- head is first character, tail is the rest
+            if Char.isAlpha head then
+                (fromChar head) ++ normalize tail
+            else
+                normalize tail
+
+encrypt: Int -> String -> String
+encrypt offset message =
+    case String.uncons message of
+        Nothing ->
+            -- base case
+            message
+        Just (head, tail) ->
+            -- head is first character, tail is the rest
+            -- Debug.log (fromChar (encode offset head))
+            fromChar (encode offset head) ++ encrypt offset tail
+    
+decrypt: Int -> String -> String
+decrypt offset message =
+    case String.uncons message of
+        Nothing ->
+            -- base case
+            message
+        Just (head, tail) ->
+            -- head is first character, tail is the rest
+            -- Debug.log (fromChar (decode offset head))
+            fromChar (decode offset head) ++ decrypt offset tail
