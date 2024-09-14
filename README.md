@@ -43,3 +43,6 @@ Then you can run the following commands in the Elm REPL:
 > add 1 2
 3 : Int
 ```
+
+Use `ctrl + d` to exit the REPL.
+Use `ctrl + l` to clear the screen.
