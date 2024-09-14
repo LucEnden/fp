@@ -32,3 +32,32 @@ pythTriple (x, y) =
 isTripleTuple: (Int, Int, Int) -> Bool
 isTripleTuple (x, y, z) =
     isTriple x y z
+
+pythTriplesMap: List (Int, Int) -> List (Int, Int, Int)
+pythTriplesMap pairs =
+    List.map (\x -> pythTriple x) pairs
+
+pythTriplesRec: List (Int, Int) -> List (Int, Int, Int)
+pythTriplesRec pairs =
+    case pairs of
+        [] ->
+            []
+        x :: xs ->
+            -- Debug.log (Debug.toString (pythTriple x))
+            pythTriple x :: pythTriplesRec xs
+
+arePythTriplesFilter: List (Int, Int, Int) -> List (Int, Int, Int) 
+arePythTriplesFilter triples =
+    List.filter (\x -> isTripleTuple x) triples
+
+arePythTriplesRec: List (Int, Int, Int) -> List (Int, Int, Int)
+arePythTriplesRec triples = 
+    case triples of
+        [] ->
+            []
+        x :: xs ->
+            -- Debug.log (Debug.toString (pythTriple x))
+            if isTripleTuple x then
+                x :: arePythTriplesRec xs
+            else
+                arePythTriplesRec xs
