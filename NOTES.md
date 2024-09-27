@@ -4,7 +4,7 @@ Its much like a cooking recipe, order matters!
 In functional programming variables are immutable, meaning they cannot be changed once they are assigned a value.
 
 ---
-List recursion
+## List recursion
 
 a list is defined as being empty or not empty
 
@@ -17,3 +17,14 @@ we write this as 1::[2,3,4]
 to write it even more complete, we write it as 1::2::3::4::[]
 
 U can use ( ... ) replacing the ... with any binary operator you turn it into a function with 2 arguments.
+
+---
+## Higher order functions
+Functions are first class citizens in functional programming
+That is: support all poerations available in the language 
+(whatever you can do with ints you can do with functions)
+
+In C# delegates are used to pass functions as arguments to other functions, this is a way to make functions first class citizens in C#
+
+---
+## Currying
