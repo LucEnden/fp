@@ -1,8 +1,12 @@
 module Ceaser exposing (..)
-
 import String exposing (fromChar)
+import List exposing (range)
 
--- ASCII characters that are important to the implementations of encode/decode:
+-- ==========================================
+-- Week 1
+-- ==========================================
+
+-- ASCII characters that are important to the implementation of encode/decode:
 -- A / 65
 -- ...
 -- Z / 90
@@ -16,6 +20,11 @@ encode offset original =
     let
         o = Char.toCode original
         i = modBy 26 offset
+        -- FEEDBACK: 
+        -- replace the constant '26' by a variable
+        -- for example you could write a function that takes in the lower and upper bound of your alphabet 
+        -- and calculate the alphabetical range from that
+        -- as a bonus it makes it more descriptive/readable to use a variable then a constant
 
         (min, max) =
             if o >= 65 && o <= 90 then
@@ -44,6 +53,10 @@ decode offset original =
         encode offset original
     else
         encode (0 - offset) original
+
+-- ==========================================
+-- Week 2
+-- ==========================================
 
 normalize: String -> String
 normalize s =
@@ -93,3 +106,51 @@ decrypt offset message =
             -- head is first character, tail is the rest
             -- Debug.log (fromChar (decode offset head))
             fromChar (decode offset head) ++ decrypt offset tail
+
+-- ==========================================
+-- Week 3
+-- ==========================================
+-- isSubstring: String -> String -> Bool
+-- isSubstring substring stringToCheck =
+--     if String.length substring > String.length stringToCheck then
+--         False
+--     else
+--         case String.uncons stringToCheck of
+--             Nothing -> False
+--             Just(head, tail) ->
+--                 Debug.log (Debug.toString head)
+--                 Debug.log tail
+--                 False
+
+isKeyValidCandidate: Int -> List String -> String -> List (Int, String)
+isKeyValidCandidate key canaries encryptedText =
+    let
+        decryptedText = decrypt key encryptedText
+    in
+
+    -- Here we recurse over canaries
+    case canaries of
+        [] -> []
+        canary :: eccessCanaries ->
+            if String.contains canary decryptedText then
+                (key, decryptedText) :: isKeyValidCandidate key eccessCanaries encryptedText
+            else
+                isKeyValidCandidate key eccessCanaries encryptedText
+
+recurseOverKeys: List Int -> List String -> String -> List (Int, String)
+recurseOverKeys keys canaries encryptedText =
+    case keys of
+        [] -> []
+        key :: eccessKeys ->
+            isKeyValidCandidate key canaries encryptedText ++ recurseOverKeys eccessKeys canaries encryptedText
+
+candidates: List String -> String -> List (Int, String)
+candidates canaries encryptedText =
+    let
+        keys = range 0 25
+    in
+
+    -- We recurse over keys using a seperate function, 
+    -- other wise if we use `case keys of` in here we will never reach the base case
+    -- where keys is empty, given that we keep redefining it on each recursive step
+    recurseOverKeys keys canaries encryptedText

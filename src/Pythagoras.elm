@@ -1,5 +1,9 @@
 module Pythagoras exposing (..)
 
+-- ==========================================
+-- Week 1
+-- ==========================================
+
 sqr: Int -> Int
 sqr n =
     n * n
@@ -10,10 +14,11 @@ isTriple a b c =
     -- Debug.log (Debug.toString (sqr b))
     -- Debug.log (Debug.toString (sqr c))
 
-    if a < 0 || b < 0 || c < 0 then
-        False
-    else
-        (sqr a) + (sqr b) == (sqr c)
+    -- if a < 0 || b < 0 || c < 0 then
+    --     False
+    -- else
+    --     (sqr a) + (sqr b) == (sqr c)
+        a >= 0 && b >= 0 && c >= 0 && (sqr a) + (sqr b) == (sqr c)
 
 leg1 : Int -> Int -> Int
 leg1 x y =
@@ -32,6 +37,10 @@ pythTriple (x, y) =
 isTripleTuple: (Int, Int, Int) -> Bool
 isTripleTuple (x, y, z) =
     isTriple x y z
+
+-- ==========================================
+-- Week 2
+-- ==========================================
 
 pythTriplesMap: List (Int, Int) -> List (Int, Int, Int)
 pythTriplesMap pairs =
@@ -61,3 +70,7 @@ arePythTriplesRec triples =
                 x :: arePythTriplesRec xs
             else
                 arePythTriplesRec xs
+
+-- ==========================================
+-- Week 3
+-- ==========================================
