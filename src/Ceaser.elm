@@ -132,6 +132,7 @@ isKeyValidCandidate key canaries encryptedText =
     case canaries of
         [] -> []
         canary :: eccessCanaries ->
+            -- TODO: implement isSubstring and replace String.contains with isSubstring
             if String.contains canary decryptedText then
                 (key, decryptedText) :: isKeyValidCandidate key eccessCanaries encryptedText
             else
@@ -148,6 +149,7 @@ candidates: List String -> String -> List (Int, String)
 candidates canaries encryptedText =
     let
         keys = range 0 25
+        -- its trivial to replace the values above to variables in order to support an alphabet larger then 26 characters
     in
 
     -- We recurse over keys using a seperate function, 

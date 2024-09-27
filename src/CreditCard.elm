@@ -72,7 +72,7 @@ doubleSecondRecursion oneIndexBased listToRecurse =
     case listToRecurse of
         [] -> []
         head :: tail ->
-            -- We mod by 2 as to check whether 
+            -- We mod by 2 as to check whether we are in any second digit
             if modBy 2 oneIndexBased == 0 then
                 -- We double every second digit, i.e. multiply by 2
                 head * 2 :: doubleSecondRecursion (oneIndexBased + 1) tail
@@ -82,12 +82,12 @@ doubleSecondRecursion oneIndexBased listToRecurse =
 doubleSecond: List Int -> List Int
 doubleSecond listToRecurse = 
     -- We provide 1 as the index to `doubleSecondRecursion`,
-    -- because starting at the 0th index would mean that modBy 2 0 = 0
+    -- because starting at the 0th index would mean that modBy 2 0 = 0 for the first itteration, making every un-even indexed number doubled
     doubleSecondRecursion 1 listToRecurse
 
     -- let
     --     indexUsedToCheckIfWeAreAtAnySecondDigit = 1
-    --     -- NOTE FOR IN CLASS: I hate this, I much prefer just plopping in a 1 in this case
+    --     -- NOTE FOR IN CLASS: I hate this, I much prefer just plopping in a 1 in this case and explain why their is a 1 here 
     -- in
     -- doubleSecondRecursion indexUsedToCheckIfWeAreAtAnySecondDigit listToRecurse
 
