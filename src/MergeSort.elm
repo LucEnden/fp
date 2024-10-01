@@ -7,56 +7,29 @@ module MergeSort exposing (..)
 --     Merge:      The sorted subarrays are merged back together in sorted order. 
 --                 The process continues until all elements from both subarrays have been merged.
 
--- #region Test lists
-testCaseA = 
-    [1, 2, 3, 4]
-testCaseB = 
-    [15, 12, 16, 18]
-testCaseC = 
-    [500, 1631, 1234, 9876]
-testCaseD = 
-    [10, 16, 14, 12, 18, 20, 28, 26, 22, 24, 30]
-testCaseE = 
-    [1, 2, 3]
--- #endregion
+msort_conquere: (List comparable, List comparable) -> List comparable
+msort_conquere dividedList =
 
-msort_divide: List comparable -> List (List comparable)
-msort_divide lst =
-    case lst of
-        [] -> []
-        x :: xs ->
-            -- To get from a list of comparables to a list of list of comparabel,
-            -- We can simply add the append a list containing the first element,
-            -- and recurse onwards until we hit the base case
-            [ [x] ] ++ msort_divide xs
-
-
---#region msort_divide tests
-msort_divide_TestCaseA_expected = 
-    [ [1], [2], [3], [4] ]
-msort_divide_TestCaseB_expected = 
-    [ [15], [12], [16], [18] ]
-msort_divide_TestCaseC_expected = 
-    [ [500], [1631], [1234], [9876] ]
-msort_divide_TestCaseD_expected = 
-    [ [10], [16], [14], [12], [18], [20], [28], [26], [22], [24], [30]]
-msort_divide_TestCaseE_expected = 
-    [ [1], [2], [3]]
-
-msort_divide_Tests =
-    [
-        msort_divide testCaseA == msort_divide_TestCaseA_expected,
-        msort_divide testCaseB == msort_divide_TestCaseB_expected,
-        msort_divide testCaseC == msort_divide_TestCaseC_expected,
-        msort_divide testCaseD == msort_divide_TestCaseD_expected,
-        msort_divide testCaseE == msort_divide_TestCaseE_expected
-    ]
---#endregion
+    if List.length (Tuple.first dividedList) == 1
+        -- Once the first element of the divided list has only 1 element, 
+        -- we can no longer split it up, hence reaching the base case
+        Debug.log (Debug.toString (dividedList))
+        []
+    else
+        msort_conquere (Tuple.first dividedList, Tuple.second dividedList)
+    
 
 msort: List comparable -> List comparable
 msort lst =
     let
-        dividedLst = msort_divide lst
+        middle = List.length lst // 2
+        -- For [1],         middle = 1 // 2 = 0
+        -- For [1,2],       middle = 2 // 2 = 1
+        -- For [1,2,3],     middle = 3 // 2 = 1
+        -- For [1,2,3,4],   middle = 4 // 2 = 2
     in
 
-    
+    if List.length lst <= 1 then
+        lst
+    else
+        []
