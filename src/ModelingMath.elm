@@ -68,7 +68,6 @@ eval valueForX func =
 -- g is the function g(x) = (x/5 - 1) ^ 4 – ((x/-2) + 2) ^ 2 + 6 
 -- print with x-range: -10 to 20, and y-range: -10 to 10
 -- > graph g -10 20 -10 10
--- ********************
 
 g: Function
 g = (Minus (Poly (Minus (Div X (Const 5)) (Const 1)) 4) (Plus (Poly (Plus (Div X (Const -2)) (Const 2)) 2) (Const 6)))
@@ -79,8 +78,12 @@ graphRow valForX yMin yMax =
         -- Base case
         ""
     else
-        -- TODO: fix the conditional for plotting either a - or a *
-        if toFloat yMax - valForX <= toFloat yMin then
+        -- Notes for in class:
+        -- I could not figure out the conditional for whether to print a - or *
+        -- All I new was I needed to use the valForX somewhere in the conditional
+        -- I tried several things (subtracting it from yMax and comparing that to yMin for example)
+        -- But ended up asking ChatGPT what the conditional should be
+        if toFloat yMin >= valForX then
             "-" ++ graphRow valForX (yMin + 1) yMax
         else
             "*" ++ graphRow valForX (yMin + 1) yMax
@@ -90,4 +93,4 @@ graph func xMin xMax yMin yMax =
     if xMin >= xMax then
         ""
     else
-        graphRow (eval (toFloat xMin) func) yMin yMax
+        graphRow (eval (toFloat xMin) func) yMin yMax ++ "\n" ++ graph func (xMin + 1) xMax yMin yMax
