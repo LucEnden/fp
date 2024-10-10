@@ -26,7 +26,7 @@ module ModelingMath exposing (..)
 -- -148
 
 type Function
-    = Poly Function Int
+    = Poly Function Function
     | Mult Function Function
     | Div Function Function
     | Plus Function Function
@@ -35,7 +35,7 @@ type Function
     | X
 
 f: Function
-f = Plus (Mult (Plus (Const 3) X) (Minus X (Poly X 5))) (Const 2)
+f = Plus (Mult (Plus (Const 3) X) (Minus X (Poly X (Const 5)))) (Const 2)
 
 print: Function -> String 
 print func =
@@ -45,7 +45,7 @@ print func =
     -- If you look at antlr4 grammer for example, it seems evident how they should be part of type Function:
     -- D:\Users\luc\repos\aut\src\BooleanArithmetic\BooleanArithmetic.g4
     case func of
-        Poly a b    -> "(" ++ print a ++ " ^ " ++ String.fromInt b ++ ")"
+        Poly a b    -> "(" ++ print a ++ " ^ " ++ print b ++ ")"
         Mult a b    -> "(" ++ print a ++ " * " ++ print b ++ ")"
         Div a b     -> "" ++ print a ++ " / " ++ print b ++ ")"
         Plus a b    -> "(" ++ print a ++ " + " ++ print b ++ ")"
@@ -56,7 +56,7 @@ print func =
 eval: Float -> Function -> Float 
 eval valueForX func =
     case func of
-        Poly a b    -> eval valueForX a ^ toFloat b -- We need to cast int to float, as elm seems to start crying when you do not pass 2 arguments of the same type to the power operator ^
+        Poly a b    -> eval valueForX a ^ eval valueForX b
         Mult a b    -> eval valueForX a * eval valueForX b
         Div a b     -> eval valueForX a / eval valueForX b
         Plus a b    -> eval valueForX a + eval valueForX b
@@ -70,7 +70,7 @@ eval valueForX func =
 -- > graph g -10 20 -10 10
 
 g: Function
-g = (Minus (Poly (Minus (Div X (Const 5)) (Const 1)) 4) (Plus (Poly (Plus (Div X (Const -2)) (Const 2)) 2) (Const 6)))
+g = (Minus (Poly (Minus (Div X (Const 5)) (Const 1)) (Const 4)) (Plus (Poly (Plus (Div X (Const -2)) (Const 2)) (Const 2)) (Const 6)))
 
 graphRow: Float -> Int -> Int -> String
 graphRow valForX yMin yMax =
@@ -94,3 +94,45 @@ graph func xMin xMax yMin yMax =
         ""
     else
         graphRow (eval (toFloat xMin) func) yMin yMax ++ "\n" ++ graph func (xMin + 1) xMax yMin yMax
+
+-- =================================================================
+-- PART 2
+-- =================================================================
+
+-- Given the type Function, write functions
+derivative: Function -> Function
+-- simplify: Function -> Function 
+-- Function derivative gives the derivative of a function (following all rules like chain-rule, etc.)
+derivative func =
+    -- NOTE FOR CLASS:
+    -- Again (like with the higher order excersize `log` function), 
+    -- I got no clue what the chain-rule is... So, once again, I asked ChatGPT
+    -- https://chatgpt.com/share/670828fd-1270-800e-8814-4a76744f2654
+    -- (and yes, i asked it to explain derivatives to me like I was 12)
+
+    -- 1. Power rule:
+    --     For f(x) = x^n, the derivative is f'(x) = n * x ^ (n-1).
+    -- 2. Chain rule:
+    --     For a composite function f(g(x)), the derivative is f'(g(x)) * g'(x).
+    -- 3. Product rule:
+    --     For two functions f(x) and g(x), the derivative is f'(x) * g(x) + f(x) * g'(x).
+    -- 4. Quotient rule:
+    --     For a ratio f(x) / g(x), the derivative is [f'(x) * g(x) - f(x) * g'(x)] / [g(x)]^2.
+    -- 5. Constant rule:
+    --     The derivative of a constant is 0.
+
+    case func of
+        Poly expresion power -> (Mult power (Poly (derivative expresion) (Minus power (Const 1)))) -- Power rule
+        Const _ -> (Const 0)
+        _ -> func
+
+-- Function simplify prunes unnecessary branches like +0, *0, *1, ^1, ^0, /1. It also simplifies 
+-- the multiplication, addition and subtraction of constants, like 3+6, 4^5, 9*5, -2--2. 
+-- Examples: 
+-- > print f 
+-- "(((3+x)*(x-(x^5)))+2)" 
+-- > print <| derivative f
+-- print derivative f
+-- "((((0+1)*(x-(x^5)))+((3+x)*(1-((5*(x^4))*1))))+0)"
+-- > print <| simplify <| derivative f  
+-- "((x-(x^5))+((3+x)*(1-(5*(x^4)))))"
