@@ -1,5 +1,14 @@
 # Functional Programming Research
 
+|         |                      |
+|---------|----------------------|
+| Teacher | Jesús Ravelo Sánchez |
+| Date    | 11 October 2024      |
+
+## Introduction
+
+As part of our Functional Programming class, we - Luc van den Elden and Niels Pruis - are doing a research paper on the amount of functional elements present in Lua, a programming language. In this paper, we will go into further detail about the goal, the research questions that follow and the conclusion of our research.
+
 ## Goal
 
 The goal of this research is to determine how functional a predetirmined programming language is.
@@ -8,6 +17,7 @@ As described in the [canvas course](https://fhict.instructure.com/courses/13984/
 > "The goal of this research assignment is to get a good impression of how FP looks like in a popular language of your choice: Python, C#, F#, Javascript, Java etc." ... "As part of this research, a prototype needs to be built of the Merge Sort Problem in the most functional way."
 
 To achieve this goal, we will be answering the following questions:
+
 1. What language will we be researching?
 2. What does it mean for a programming language to be functional?
 3. How functional is the language we are researching?
@@ -25,11 +35,12 @@ This description indicates that LUA is a language that supports functional progr
 
 ### Research Aproach
 
-To answer the question at hand, we will use Perplexity to gather initial online sources. We’ll then compare definitions and characteristics from the set of online sources to identify a consensus on what defines a functional programming language.
+To answer the question at hand, we will use community research and literature study approach from the DOT-framework, to gather initial online sources. We’ll then compare definitions and characteristics from the set of online sources to identify a consensus on what defines a functional programming language.
 
 ### Sources used
 
 Below are the sources we used to gather information on what defines a functional programming language:
+
 1. [tutorialspoint.com](https://www.tutorialspoint.com/functional_programming/functional_programming_introduction.htm)
 2. [geeksforgeeks.org](https://www.geeksforgeeks.org/functional-programming-paradigm/)
 3. [wiki.haskell.org](https://wiki.haskell.org/Functional_programming)
@@ -38,7 +49,7 @@ Below are the sources we used to gather information on what defines a functional
 
 The tutorialspoint.com source describes the difference between "pure functional languages" and "impure functional languages" as follows:
 > "Pure Functional Languages − These types of functional languages support only the functional paradigms. For example − Haskell."
-> 
+>
 > "Impure Functional Languages − These types of functional languages support the functional paradigms and imperative style programming. For example − LISP."
 
 The geeksforgeeks.org source describes functional programming as follows:
@@ -49,40 +60,38 @@ We can see that the geeksforgeeks article and the tutorialspoint article have a 
 > "a philosophical and theoretical framework of a scientific school or discipline within which theories, laws, and generalizations and the experiments performed in support of them are formulated"
 
 This definition indicates that their exists a set of laws (or rules) which define what functional programming is. This is further supported by the fact that both the tutorialspoint and geeksforgeeks articles provide a list of characteristics that define functional programming aspects. These characteristics are:
-- recursion
-- functions are first-class citizens, which by extension;
-    - should make the language support Currying
-    - should make the language support higher-order functions
-- immutable data/variables
-- annonymous functions
-- functions have no-side effects (i.e. pure functions)
 
-This list of characteristics is also supported by the wiki.haskell.org source. It describes the same concepts troughout the article, and some more details specific to haskell (which is considered a pure functional programming language) but given the small time to do this research we will not go into these detail.
+- Recursion
+- Functions are first-class citizens, which by extension should make the language support Currying and higher-order functions
+- Immutable data/variables
+- Annonymous functions
+- Functions have no-side effects (i.e. pure functions)
+
+This list of characteristics is also supported by the wiki.haskell.org source. It describes the same concepts troughout the article, and some more details specific to haskell (which is considered a pure functional programming language) but given the small time to do this research, we will not go into these detail.
 
 ### Conclusion
 
 From the sources we have gathered, we can conclude that a functional programming language is a language that supports the following characteristics:
-1. recursion
-2.  functions are first-class citizens, which by extension;
-    1.  should make the language support Currying
-    2.  should the language support higher-order functions
-3.  immutable data/variables
-4.  annonymous functions
-5.  functions have no-side effects (i.e. pure functions)
+
+1. Recursion
+2. Functions are first-class citizens, which by extension should make the language support Currying and higher-order functions
+3. Immutable data/variables
+4. Annonymous functions
+5. Functions have no-side effects (i.e. pure functions)
 
 ## 3. How functional is the language we are researching?
- 
+
 To provide an answer to this question, we can simply look at the conclusion from research question 2 and see whether or not LUA supports these characteristics.
 
 | Characteristic                      | Does LUA support this? |
 |-------------------------------------|------------------------|
-| recursion                           | Yes                    |
-| functions are first-class citizens  | Yes                    |
+| Recursion                           | Yes                    |
+| Functions are first-class citizens  | Yes                    |
 | Currying                            | Yes                    |
-| higher-order functions              | Yes                    |
-| immutable data/variables            | No                     |
-| annonymous functions                | Yes                    |
-| functions have no-side effects      | No                     |
+| Higher-order functions              | Yes                    |
+| Immutable data/variables            | No                     |
+| Annonymous functions                | Yes                    |
+| Functions have no-side effects      | No                     |
 
 ### Recursion Example
 
@@ -176,7 +185,7 @@ We could also say that out of the 7 characteristics that define a functional pro
 
 ## Merge Sort Assignment
 
-As part of the research assignment, a prototype needs to be built of the Merge Sort Problem in the most functional way. [Use this link to checkout the implementation of the merge sort algorithm without having to setup lua locally!](https://onecompiler.com/lua/42ukqu4s2) 
+As part of the research assignment, a prototype needs to be built of the Merge Sort Problem in the most functional way. [Use this link to checkout the implementation of the merge sort algorithm without having to setup lua locally!](https://onecompiler.com/lua/42ukqu4s2).
 
 We have implemented the merge sort algorithm in a functional way, using: recursion, higher-order functions, and immutability (by only creating new variables instead of changing existing ones).
 
@@ -247,4 +256,3 @@ This concludes our research on functional programming in LUA. We have determined
 ## Sources
 
 ["All values in Lua are first-class values."](https://www.lua.org/manual/5.1/manual.html#2.2)
-
