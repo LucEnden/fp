@@ -1,0 +1,13 @@
+Given the following list:
+    [ 1, 4, 7, 3, 5, 2, 8, 6 ]
+
+We start by splitting the list in halve, to the point we are left with lists of length 1.
+I.e.:
+    [ 1, 4,     7, 3,     5, 2,     8, 6 ]
+
+    [ 1, 4 ], [ 7, 3 ], [ 5, 2 ], [ 8, 6 ]
+
+    [1], [4], [7], [3], [5], [2], [8], [6]
+
+We have now hit our base case.
+Now we recurse back over the lists, 

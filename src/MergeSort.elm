@@ -7,6 +7,8 @@ module MergeSort exposing (..)
 --     Merge:      The sorted subarrays are merged back together in sorted order. 
 --                 The process continues until all elements from both subarrays have been merged.
 
+
+
 merge: List comparable -> List comparable
 merge n =
     []
