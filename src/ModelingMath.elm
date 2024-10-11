@@ -124,7 +124,7 @@ derivative func =
     case func of
         Poly expresion power -> (Mult power (Poly (derivative expresion) (Minus power (Const 1)))) -- Power rule
         Const _ -> (Const 0)
-        _ -> func
+        _ -> func -- Catch all, if all rules where to be implemented this could go
 
 -- Function simplify prunes unnecessary branches like +0, *0, *1, ^1, ^0, /1. It also simplifies 
 -- the multiplication, addition and subtraction of constants, like 3+6, 4^5, 9*5, -2--2. 

@@ -19,10 +19,10 @@ module CustomTypesExample exposing (..)
 
 
 type Either a b
-    = Left a
-    | RIght b
+    = Left Int
+    | Right Char
 
-f: Either -> Int
+f: Either a b -> Int
 f e =
     case e of
         Left n ->   n * n
